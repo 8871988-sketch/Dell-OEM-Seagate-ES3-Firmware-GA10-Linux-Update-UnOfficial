@@ -1,0 +1,8 @@
+# Firmware files belong to Dell/Seagate and must never be committed
+*.BIN
+*.bin
+*.fwh
+*.FWH
+*.lod
+*.LOD
+extracted/
