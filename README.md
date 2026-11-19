@@ -2,7 +2,7 @@
 
 **Unofficial community guide.** No firmware is distributed here: you download the original package from Dell yourself.
 
-Languages: **English** | [Українська](README.uk.md)
+Languages: **English** | [Українська](README.uk.md) | [Deutsch](README.de.md)
 
 ---
 
