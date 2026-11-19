@@ -159,6 +159,8 @@ LOD image         : 1691648 bytes
 Check 1/3         : length is a multiple of 512            OK
 Check 2/3         : LOD header checksum                    OK
 Check 3/3         : stored length equals real length       OK
+SHA-256           : 6a261b8bab566d7f014d2dd49f72f65b089d3b322348c69029545a7d18422625
+Known image       : yes - identical to the GA10 image tested in this guide
 ```
 
 **Вручну** (саме так було зроблено на тестовому сервері):
@@ -172,6 +174,18 @@ od -An -v -tu2 -N64 GA10.lod | awk '{for(i=1;i<=NF;i++)s+=$i} END{print s%65536}
 ```
 
 Якщо хоч одне з трьох чисел інше, не продовжуйте. Чому ці перевірки працюють, пояснено в [docs/fwh-header-format.md](docs/fwh-header-format.md) (англійською).
+
+**Порівняйте контрольну суму.** Обидва способи дають однаковий файл, байт у байт. Саме цей образ було залито на тестовому сервері:
+
+```bash
+sha256sum /root/ga10/GA10.lod
+```
+
+```
+6a261b8bab566d7f014d2dd49f72f65b089d3b322348c69029545a7d18422625  /root/ga10/GA10.lod
+```
+
+Інше значення означає, що ваш файл не є образом, на якому перевірено цей посібник. Не заливайте його.
 
 ### 5. Прошити диск, який не використовується
 

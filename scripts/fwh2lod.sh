@@ -30,6 +30,9 @@
 
 set -euo pipefail
 
+# SHA-256 of the GA10.lod image that was flashed successfully (see README).
+known_ga10_sha256="6a261b8bab566d7f014d2dd49f72f65b089d3b322348c69029545a7d18422625"
+
 die()  { echo "ERROR: $*" >&2; exit 1; }
 note() { echo "$*"; }
 
@@ -125,6 +128,12 @@ outfield=$(od -An -tu4 -j36 -N4 "$out" | tr -d ' ')
 
 note "Output file       : $out ($outsize bytes)"
 if command -v sha256sum >/dev/null 2>&1; then
-  note "SHA-256           : $(sha256sum "$out" | awk '{print $1}')"
+  sha=$(sha256sum "$out" | awk '{print $1}')
+  note "SHA-256           : $sha"
+  if [ "$sha" = "$known_ga10_sha256" ]; then
+    note "Known image       : yes - identical to the GA10 image tested in this guide"
+  else
+    note "Known image       : NO - this is not the GA10 image tested in this guide, double-check before flashing"
+  fi
 fi
 note "Done. Nothing was flashed - see the README for the next step."

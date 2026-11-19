@@ -159,6 +159,8 @@ LOD image         : 1691648 bytes
 Check 1/3         : length is a multiple of 512            OK
 Check 2/3         : LOD header checksum                    OK
 Check 3/3         : stored length equals real length       OK
+SHA-256           : 6a261b8bab566d7f014d2dd49f72f65b089d3b322348c69029545a7d18422625
+Known image       : yes - identical to the GA10 image tested in this guide
 ```
 
 **By hand** (exactly what was done on the test server):
@@ -172,6 +174,18 @@ od -An -v -tu2 -N64 GA10.lod | awk '{for(i=1;i<=NF;i++)s+=$i} END{print s%65536}
 ```
 
 If any of the three numbers is different, do not continue. Why these checks work is explained in [docs/fwh-header-format.md](docs/fwh-header-format.md).
+
+**Compare the checksum.** Both ways produce the same file, byte for byte. This is the image that was flashed on the test server:
+
+```bash
+sha256sum /root/ga10/GA10.lod
+```
+
+```
+6a261b8bab566d7f014d2dd49f72f65b089d3b322348c69029545a7d18422625  /root/ga10/GA10.lod
+```
+
+A different value means your file is not the image this guide was tested with. Do not flash it.
 
 ### 5. Flash a drive that is not in use
 

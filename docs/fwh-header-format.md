@@ -101,6 +101,16 @@ All other bytes of this block are zero.
 
 `scripts/fwh2lod.sh` computes the header length from the count byte and then runs checks 2 and 3. It writes the `.lod` file only when both pass.
 
+## Reference values
+
+| File | Size (bytes) | SHA-256 |
+|---|---|---|
+| `Serial-ATA_Firmware_HPG73_LN_GA10_A00.BIN` | about 38.6 MB | `3d2efefa03b8942cdee4bca30012bed69badb611b79ebce20d7642601f698999` |
+| `GA10.fwh` (inside the package) | 1 691 952 | not recorded |
+| `GA10.lod` (after removing 304 bytes) | 1 691 648 | `6a261b8bab566d7f014d2dd49f72f65b089d3b322348c69029545a7d18422625` |
+
+The `GA10.lod` value was measured on the test server. The manual `dd` conversion and `scripts/fwh2lod.sh` produced byte-identical files.
+
 ## Other Dell firmware files
 
 Header lengths reported elsewhere differ (208 and 256 bytes have been mentioned on the HDD Guru forum for other drive families), which fits a variable-length model table: a file listing 4 models would have a `64 + 4 * 48 = 256`-byte header. This has not been verified on real files other than `GA10.fwh`. Newer drive generations also use signed LOD images with a different layout. Do not assume this page describes them, and never flash a file whose checks fail.
